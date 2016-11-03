@@ -176,13 +176,8 @@ client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
 exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id i3-msg 'workspace 1 www; exec firefox'
-exec --no-startup-id i3-msg 'workspace 3 music; exec vlc'
-exec --no-startup-id i3-msg "workspace 4 irc; exec gnome-terminal -x sh -c 'weechat'"
-exec --no-startup-id i3-msg 'workspace 2 code; exec gnome-terminal -x sh -c "vim"'
 
 new_window 1pixel
-assign [class="^Firefox$"] workspace 1 www
 assign [class="^vlc$"] workspace 3 music
 # Transparency
 exec --no-startup-id i3-msg 'exec xcompmgr'
