@@ -1,0 +1,44 @@
+#!/bin/bash
+# Copyright (C) 2016 Erion Metolli <erion1metolli@gmail.com>
+#
+# GNU General Public License as published by the Free Software Foundation
+# version 3 or higher of the License
+# <http://www.gnu.org/licenses/>.
+#
+
+#------------------------------------------------------------------------
+
+PERCENT=$(cat /sys/class/power_supply/BAT0/capacity)
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
+STATUSICON="$(echo -e '\uf00d') $(echo -e '\uf240')"
+
+if [ $STATUS == "Charging" ]; then
+	STATUSICON="$(echo -e '\uf0e7')"
+elif [ $STATUS == "Discharging" ]; then
+	STATUSICON="$(echo -e '\uf1e6')"
+fi
+
+FULL_TEXT="$STATUSICON $PERCENT%"
+echo $FULL_TEXT
+echo $FULL_TEXT
+
+# Color
+if [[ $PERCENT -le 10 ]]; then
+	echo "#FFFFFF"
+elif [[ $PERCENT -le 20 ]]; then
+	echo "#FF3300"
+elif [[ $PERCENT -le 30 ]]; then
+	echo "#FF6600"
+elif [[ $PERCENT -le 40 ]]; then
+	echo "#FF9900"
+elif [[ $PERCENT -le 50 ]]; then
+	echo "#FFCC00"
+elif [[ $PERCENT -le 60 ]]; then
+	echo "#FFFF00"
+elif [[ $PERCENT -le 70 ]]; then
+	echo "#FFFF33"
+elif [[ $PERCENT -le 80 ]]; then
+	echo "#FFFF66"
+else
+	echo "#FFFFFF"
+fi

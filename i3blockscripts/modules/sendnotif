@@ -1,0 +1,29 @@
+#!/bin/bash
+# Copyrights (c) 2016 Erion Metolli <erion1metolli@gmail.com>
+
+# Default variables
+TIME=1
+URGENCY="normal"
+
+if [[ ! -z $1 ]]; then
+	MESSAGE=$1
+else
+	echo "No message specified."
+	exit
+fi
+
+if [[ ! -z $3 ]]; then
+	TIME=$3
+fi
+
+if [[ ! -z $2 ]]; then
+	URGENCY=$2
+fi
+
+pkill dunst
+dunst &
+if [[ ! -z $3 ]]; then
+	exec notify-send "$MESSAGE" -t $TIME -u $URGENCY
+else
+	exec notify-send "$MESSAGE" -u $URGENCY
+fi

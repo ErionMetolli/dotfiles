@@ -1,0 +1,21 @@
+#!/bin/bash
+# Copyrights (c) 2016 Erion Metolli <erion1metolli@gmail.com>
+
+STATUS=$(synclient | awk -F"= " '/Touchpad/ {print $2;}')
+if [ ! -z $1 ]; then
+	if [ $1 == "change" ]; then
+		if [ $STATUS == "1" ]; then
+			synclient TouchpadOff=0
+			pkill -RTMIN+2 i3blocks
+		elif [ $STATUS == "0" ]; then
+			synclient TouchpadOff=1
+			pkill -RTMIN+2 i3blocks
+		fi
+	fi
+else
+	if [ $STATUS == "1" ];then
+		echo "<span foreground=\"#FF0000\">Touchpad: OFF</span>"
+	else
+		echo "<span foreground=\"#00FF00\">Touchpad: ON</span>"
+	fi
+fi

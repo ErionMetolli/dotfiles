@@ -1,0 +1,30 @@
+#!/bin/bash
+# Copyrights (c) 2016 Erion Metolli <erion1metolli@gmail.com>
+
+LOCALHOST=$(curl -s 127.0.0.1)
+
+SEPARATOR="<"
+
+if [ -z $LOCALHOST ]; then
+	STATUS="<span foreground=\"#FF0000\">80<sup>DOWN</sup></span>"
+else
+	STATUS="<span foreground=\"#00FF00\">80<sup>UP</sup></span>"
+fi
+
+FTPSTATUS=$(nmap  localhost -p 21 | grep ftp | awk '{ print $2; }')
+
+if [ $FTPSTATUS == "closed" ]; then
+	STATUS="$STATUS <span foreground=\"#FF0000\">21<sup>DOWN</sup></span>"
+elif [ $FTPSTATUS == "open" ]; then
+	STATUS="$STATUS <span foreground=\"#00FF00\">21<sup>UP</sup></span>"
+fi
+
+POSTGRES=$(nmap localhost -p 5432 | grep postgresql | awk '{ print $2; }')
+
+if [ $POSTGRES == "closed" ]; then
+	STATUS="$STATUS <span foreground=\'#FF0000\">PGSQL<sup>DOWN</sup></span>"
+elif [ $POSTGRES == "open" ]; then
+	STATUS="$STATUS <span foreground=\"#00FF00\">PGSQL<sup>UP</sup></span>"
+fi
+
+echo $STATUS

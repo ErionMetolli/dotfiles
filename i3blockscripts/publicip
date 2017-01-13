@@ -1,0 +1,11 @@
+#!/bin/bash
+# Copyrights (C) Erion Metolli <erion1metolli@gmail.com>
+# Public IP ADDRESS
+
+IP=$(curl -s icanhazip.com | head -1)
+
+if [[ ! -z $IP ]] && [[ $IP == [0-9]* ]]; then
+	echo "<span foreground=\"#00FF00\"><b>$IP</b></span>"
+else
+	exit
+fi

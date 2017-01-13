@@ -1,0 +1,15 @@
+#!/bin/bash
+# Copyright (c) 2016 Erion Metolli <erion1metolli@gmail.com>
+
+CONNECTED=$(curl -s http://ipko.wifi/status | grep "connected / left" | head -1 | awk '{print $4}' | awk -F">" '{print $3;}')
+LEFT=$(curl -s http://ipko.wifi/status | grep "connected / left" | head -1 | awk '{print $6}' | awk -F"<" '{print $1;}')
+
+if [[ ! -z $CONNECTED ]]; then
+	if [[ $LEFT == [0-9]h* ]]; then
+		echo "<span foreground=\"#00FF00\"><sup>Connected</sup>$CONNECTED / <sup>Left</sup>$LEFT</span>"
+	else
+		echo "<span foreground=\"#FF0000\"><sup>Connected</sup>$CONNECTED / <sup>Left</sup>$LEFT</span>"
+	fi
+else
+	echo "<span foreground=\"#FF0000\">No ipko network.</span>"
+fi
