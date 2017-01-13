@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/noire/.config/i3'
+let g:netrw_dirhist_2='/etc/X11/xorg.conf.d'
+let g:netrw_dirhist_3='/home/noire/.i3'
+let g:netrw_dirhist_4='/usr/i3blocks'
+let g:netrw_dirhist_5='/home/noire/.i3'
+let g:netrw_dirhist_6='/home/noire/.mutt'
+let g:netrw_dirhist_7='/home/noire/Erion/.git'
