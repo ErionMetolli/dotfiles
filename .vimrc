@@ -5,8 +5,9 @@ set smartindent
 set number
 
 " Run py
-nnoremap <F5> :make<CR>
-nnoremap <C-m> :make<CR>
+map <F5> :make<CR>
+map <C-m> :make<CR>
+imap <F5> <C-o>:make<CR>
 
 " Ctrl backspace deletes the previous word
 noremap! <C-BS> <C-w>
