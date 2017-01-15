@@ -1,0 +1,17 @@
+#!/bin/bash
+CURRENT=$(cat /sys/class/backlight/nv_backlight/brightness)
+if [ $* == "up" ];then
+	CURRENT=$((CURRENT + 10))
+	echo $CURRENT | tee /sys/class/backlight/nv_backlight/brightness
+	if [ $CURRENT == 110 ]; then
+		sudo -u noire notify-send -t 1 -u normal "Brightness up: 100"
+	else
+		sudo -u noire notify-send -t 1 -u normal "Brightness up: $CURRENT"
+	fi
+elif [ $* == "down" ];then
+	if [ $CURRENT > 10 ];then
+		CURRENT=$((CURRENT - 10))
+	fi
+	echo $CURRENT | tee /sys/class/backlight/nv_backlight/brightness
+	sudo -u noire notify-send -t 1 -u low "Brightness down: $CURRENT"
+fi

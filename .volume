@@ -1,0 +1,28 @@
+#!/bin/bash
+# Copyrights (c) 2016 Erion Metolli <erion1metolli@gmail.com>
+
+# Get current volume
+CURRENT=$(amixer get Master |grep "Left: Playback" | awk '{print $5}' | sed -e 's/\[//' -e 's/\]//')
+if [ $* == "up" ];then
+	amixer set 'Master' 10%+
+	CURRENT=$(amixer get Master |grep "Left: Playback" | awk '{print $5}' | sed -e 's/\[//' -e 's/\]//')
+	sendnotif "Volume up: $CURRENT" normal 1
+	pkill -RTMIN+1 i3blocks
+elif [ $* == "down" ];then
+	amixer set 'Master' 10%-
+	CURRENT=$(amixer get Master |grep "Left: Playback" | awk '{print $5}' | sed -e 's/\[//' -e 's/\]//')
+	sendnotif "Volume down: $CURRENT" normal 1
+	pkill -RTMIN+1 i3blocks
+elif [ $* == "mute" ];then
+	if [ $CURRENT == "0%" ];then
+		lastVol=$(cat ./lastVol)
+		amixer set 'Master' $lastVol
+		sendnotif "Volume unmuted. $lastVol" normal 1 
+		pkill -RTMIN+1 i3blocks
+	else
+		echo $CURRENT > lastVol
+		amixer set 'Master' 0%
+		sendnotif "Volume muted!" critical 1
+		pkill -RTMIN+1 i3blocks
+	fi
+fi
